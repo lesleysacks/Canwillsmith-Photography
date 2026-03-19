@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Canwill Smith Photography — Paarl, South Africa</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--black:#080808;--white:#f0f0f0;--gray-light:#d0d0d0;--gray-mid:#888;--gray-darker:#141414;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'Montserrat',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+.cursor{position:fixed;width:8px;height:8px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.15s;}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,255,255,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.15s ease;opacity:0.6;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.8rem 5rem;display:flex;justify-content:space-between;align-items:center;transition:all 0.4s;}
+nav.scrolled{background:rgba(8,8,8,0.97);backdrop-filter:blur(10px);padding:1rem 5rem;border-bottom:1px solid rgba(255,255,255,0.06);}
+.nav-logo img{height:36px;filter:invert(1);object-fit:contain;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{color:var(--white);text-decoration:none;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;opacity:0.5;transition:opacity 0.3s;}
+.nav-links a:hover{opacity:1;}
+.nav-book{border:1px solid rgba(255,255,255,0.25);padding:0.6rem 1.4rem;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);text-decoration:none;transition:all 0.3s;opacity:0.7;}
+.nav-book:hover{background:var(--white);color:var(--black);opacity:1;}
+.hero{height:100vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;position:relative;}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:7rem 4rem 4rem 5rem;z-index:2;}
+.hero-right{position:relative;overflow:hidden;}
+.hero-right img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(100%) contrast(1.05);display:block;transition:filter 0.6s;}
+.hero-right:hover img{filter:grayscale(40%) contrast(1.05);}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,var(--black) 0%,transparent 35%);z-index:1;pointer-events:none;}
+.hero-eyebrow{font-size:0.6rem;letter-spacing:0.45em;text-transform:uppercase;opacity:0.4;margin-bottom:1.8rem;animation:fadeUp 1s 0.2s both;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,6rem);font-weight:300;line-height:0.95;letter-spacing:-0.02em;margin-bottom:1.5rem;animation:fadeUp 1s 0.4s both;}
+.hero-title em{font-style:italic;color:var(--gray-mid);}
+.hero-divider{width:50px;height:1px;background:rgba(255,255,255,0.3);margin-bottom:1.5rem;animation:fadeUp 1s 0.5s both;}
+.hero-sub{font-size:0.76rem;line-height:1.9;opacity:0.45;max-width:320px;margin-bottom:2.5rem;animation:fadeUp 1s 0.6s both;}
+.hero-btns{display:flex;gap:1.2rem;flex-wrap:wrap;animation:fadeUp 1s 0.7s both;}
+.btn-primary{background:var(--white);color:var(--black);padding:0.9rem 2rem;font-family:'Montserrat',sans-serif;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:background 0.3s;white-space:nowrap;}
+.btn-primary:hover{background:var(--gray-light);}
+.btn-secondary{border:1px solid rgba(255,255,255,0.2);color:var(--white);padding:0.9rem 2rem;font-family:'Montserrat',sans-serif;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:border-color 0.3s;white-space:nowrap;}
+.btn-secondary:hover{border-color:rgba(255,255,255,0.6);}
+.hero-badge{display:inline-flex;gap:1.2rem;align-items:center;margin-top:2.5rem;border:1px solid rgba(255,255,255,0.1);padding:1rem 1.4rem;animation:fadeUp 1s 0.9s both;}
+.badge-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;line-height:1;}
+.badge-text{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.4;line-height:1.6;}
+.hero-scroll{position:absolute;right:2rem;bottom:2.5rem;z-index:3;display:flex;flex-direction:column;align-items:center;gap:0.7rem;font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;opacity:0.3;animation:fadeUp 1s 1s both;}
+.scroll-line{width:1px;height:45px;background:linear-gradient(to bottom,var(--white),transparent);animation:scrollPulse 2s infinite;}
+@keyframes scrollPulse{0%,100%{opacity:0.3;}50%{opacity:0.8;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(25px);}to{opacity:1;transform:translateY(0);}}
+section{padding:8rem 5rem;}
+.section-label{font-size:0.58rem;letter-spacing:0.45em;text-transform:uppercase;opacity:0.35;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
+.section-label::before{content:'';width:30px;height:1px;background:currentColor;}
+.about{background:var(--gray-darker);display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:center;}
+.about-img-wrap{position:relative;height:560px;}
+.about-img-main{width:75%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(100%);display:block;}
+.about-img-logo{position:absolute;bottom:0;right:0;width:46%;background:#111;padding:1.5rem;filter:grayscale(100%) brightness(0.5);border:3px solid var(--gray-darker);object-fit:contain;max-height:200px;}
+.about-badge{position:absolute;top:1.5rem;right:1.5rem;background:var(--white);color:var(--black);padding:1rem;text-align:center;width:82px;z-index:2;}
+.about-badge .big{font-family:'Cormorant Garamond',serif;font-size:1.6rem;line-height:1;}
+.about-badge .small{font-size:0.48rem;letter-spacing:0.12em;text-transform:uppercase;opacity:0.6;line-height:1.5;margin-top:0.3rem;}
+.about-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,3.5vw,3.8rem);font-weight:300;line-height:1.15;margin-bottom:1.8rem;}
+.about-text h2 em{font-style:italic;color:var(--gray-mid);}
+.about-text p{font-size:0.82rem;line-height:1.95;opacity:0.5;margin-bottom:1.2rem;}
+.about-stats{display:flex;gap:3rem;margin-top:3rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,0.07);}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;line-height:1;}
+.stat-label{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.35;margin-top:0.4rem;}
+.marquee-strip{background:var(--white);padding:1rem 0;overflow:hidden;white-space:nowrap;}
+.marquee-track{display:inline-flex;gap:2.5rem;animation:marquee 25s linear infinite;}
+.marquee-item{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:var(--black);display:flex;align-items:center;gap:1.5rem;}
+.marquee-sep{width:4px;height:4px;background:var(--black);border-radius:50%;opacity:0.3;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.services{background:var(--black);}
+.services-head{margin-bottom:5rem;}
+.services-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:300;line-height:1.05;}
+.services-title em{font-style:italic;color:var(--gray-mid);}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.06);}
+.service-card{background:var(--black);padding:3rem 2rem;position:relative;transition:background 0.4s;cursor:none;}
+.service-card:hover{background:#0f0f0f;}
+.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--white);transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+.service-card:hover::after{transform:scaleX(1);}
+.service-num{font-family:'Cormorant Garamond',serif;font-size:4rem;color:rgba(255,255,255,0.05);line-height:1;margin-bottom:1rem;transition:color 0.4s;}
+.service-card:hover .service-num{color:rgba(255,255,255,0.12);}
+.service-icon{font-size:1.4rem;opacity:0.2;margin-bottom:0.8rem;transition:opacity 0.4s;}
+.service-card:hover .service-icon{opacity:0.5;}
+.service-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;margin-bottom:0.8rem;}
+.service-desc{font-size:0.72rem;line-height:1.85;opacity:0.35;}
+.gallery{background:var(--gray-darker);}
+.gallery-head{margin-bottom:3.5rem;}
+.gallery-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:300;line-height:1.05;}
+.gallery-title em{font-style:italic;color:var(--gray-mid);}
+.gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:190px;gap:0.7rem;}
+.g-item{background:#1a1a1a;overflow:hidden;position:relative;cursor:none;display:flex;align-items:center;justify-content:center;}
+.g-item img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(100%);transition:filter 0.5s,transform 0.5s;}
+.g-item:hover img{filter:grayscale(0%);transform:scale(1.04);}
+.g-placeholder{font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(255,255,255,0.12);font-size:1.1rem;text-align:center;padding:1rem;transition:color 0.4s;}
+.g-item:hover .g-placeholder{color:rgba(255,255,255,0.35);}
+.g-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.5);opacity:0;transition:opacity 0.4s;display:flex;align-items:flex-end;padding:1.2rem;}
+.g-item:hover .g-overlay{opacity:1;}
+.g-tag{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.4);padding:0.3rem 0.7rem;color:var(--white);}
+.g1{grid-column:1/6;grid-row:1/3;}.g2{grid-column:6/9;grid-row:1/2;}.g3{grid-column:9/13;grid-row:1/2;}
+.g4{grid-column:6/10;grid-row:2/3;}.g5{grid-column:10/13;grid-row:2/4;}.g6{grid-column:1/5;grid-row:3/4;}.g7{grid-column:5/10;grid-row:3/4;}
+.photographer{background:var(--black);display:grid;grid-template-columns:1fr 1fr;min-height:600px;}
+.photographer-img{overflow:hidden;}
+.photographer-img img{width:100%;height:100%;max-height:700px;object-fit:cover;object-position:center top;filter:grayscale(100%) contrast(1.1);display:block;transition:filter 0.5s;}
+.photographer-img:hover img{filter:grayscale(30%) contrast(1.1);}
+.photographer-text{background:var(--gray-darker);padding:6rem 5rem;display:flex;flex-direction:column;justify-content:center;}
+.photographer-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3.5rem);font-weight:300;line-height:1.15;margin-bottom:2rem;}
+.photographer-text h2 em{font-style:italic;color:var(--gray-mid);}
+.photographer-text p{font-size:0.82rem;line-height:1.95;opacity:0.5;margin-bottom:1.2rem;}
+.photographer-sig{font-family:'Cormorant Garamond',serif;font-size:2rem;font-style:italic;margin-top:2rem;opacity:0.5;}
+.testimonials{background:var(--gray-darker);}
+.test-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,4vw,4rem);font-weight:300;margin-bottom:4rem;line-height:1.05;}
+.test-title em{font-style:italic;color:var(--gray-mid);}
+.test-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.test-card{background:var(--black);border:1px solid rgba(255,255,255,0.06);padding:2.5rem;transition:border-color 0.4s;}
+.test-card:hover{border-color:rgba(255,255,255,0.2);}
+.test-stars{font-size:0.75rem;letter-spacing:0.15em;opacity:0.6;margin-bottom:1rem;}
+.test-quote{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;line-height:1.7;opacity:0.75;margin-bottom:1.5rem;}
+.test-author{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.35;}
+.contact{background:var(--black);display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:start;}
+.contact-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,4rem);font-weight:300;line-height:1.1;margin-bottom:1.5rem;}
+.contact-title em{font-style:italic;color:var(--gray-mid);}
+.contact-intro{font-size:0.8rem;line-height:1.9;opacity:0.45;margin-bottom:3rem;}
+.contact-detail{display:flex;align-items:flex-start;gap:1.2rem;margin-bottom:1.8rem;padding-bottom:1.8rem;border-bottom:1px solid rgba(255,255,255,0.05);}
+.contact-detail:last-of-type{border-bottom:none;}
+.c-icon{width:38px;height:38px;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+.c-label{font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.35;margin-bottom:0.3rem;}
+.c-val{font-size:0.85rem;opacity:0.7;}
+.contact-form{display:flex;flex-direction:column;gap:1.5rem;}
+.form-group{display:flex;flex-direction:column;gap:0.5rem;}
+.form-label{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;opacity:0.4;}
+.form-input,.form-select,.form-textarea{background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.12);color:var(--white);font-family:'Montserrat',sans-serif;font-size:0.85rem;font-weight:300;padding:0.8rem 0;outline:none;transition:border-color 0.3s;}
+.form-select option{background:#1a1a1a;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-bottom-color:rgba(255,255,255,0.5);}
+.form-textarea{resize:none;height:90px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.form-btn{background:var(--white);color:var(--black);border:none;font-family:'Montserrat',sans-serif;font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;padding:1.1rem 2.5rem;cursor:none;transition:background 0.3s;align-self:flex-start;margin-top:0.5rem;}
+.form-btn:hover{background:var(--gray-light);}
+footer{background:var(--gray-darker);border-top:1px solid rgba(255,255,255,0.05);padding:3rem 5rem;display:flex;justify-content:space-between;align-items:center;}
+.footer-copy{font-size:0.6rem;opacity:0.25;letter-spacing:0.1em;}
+.footer-social{display:flex;gap:1rem;}
+.footer-social a{width:34px;height:34px;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:var(--white);text-decoration:none;font-size:0.8rem;opacity:0.4;transition:all 0.3s;}
+.footer-social a:hover{opacity:1;border-color:rgba(255,255,255,0.4);}
+.reveal{opacity:0;transform:translateY(35px);transition:opacity 0.85s ease,transform 0.85s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(max-width:900px){
+nav{padding:1.2rem 2rem;}nav.scrolled{padding:0.8rem 2rem;}.nav-links,.nav-book{display:none;}
+section{padding:5rem 2rem;}.hero{grid-template-columns:1fr;height:auto;}.hero-left{padding:7rem 2rem 3rem;}
+.hero-right{height:55vw;}.hero-overlay{background:linear-gradient(to bottom,var(--black) 0%,transparent 30%);}
+.about,.contact{grid-template-columns:1fr;gap:4rem;}.about-img-wrap{height:320px;}.services-grid{grid-template-columns:1fr 1fr;}
+.gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:160px;}.g-item{grid-column:auto!important;grid-row:auto!important;}
+.photographer{grid-template-columns:1fr;}.photographer-img img{min-height:320px;}.photographer-text{padding:4rem 2rem;}
+.test-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}
+footer{flex-direction:column;gap:2rem;text-align:center;padding:3rem 2rem;}
+body{cursor:auto;}.cursor,.cursor-ring{display:none;}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav id="nav">
+  <a href="#" class="nav-logo"><img src="logo.jpg" alt="Canwill Smith Photography"/></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#photographer">The Photographer</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-book">Book Now</a>
+</nav>
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Paarl · South Africa · Est. 2020</p>
+    <h1 class="hero-title">Canwill<br><em>Smith</em><br>Photography</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Capturing life's most precious moments with passion, precision and artistry.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Book a Session</a>
+      <a href="#gallery" class="btn-secondary">View Gallery</a>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-num">18+</div>
+      <div class="badge-text">Five Star<br>Reviews</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-overlay"></div>
+    <img src="canwill.jpg" alt="Canwill Smith"/>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+</section>
+<section class="about" id="about">
+  <div class="about-img-wrap reveal">
+    <img class="about-img-main" src="canwill.jpg" alt="Canwill Smith"/>
+    <img class="about-img-logo" src="logo.jpg" alt="Logo"/>
+    <div class="about-badge"><div class="big">★★★★★</div><div class="small">100%<br>Recommended</div></div>
+  </div>
+  <div class="about-text reveal">
+    <div class="section-label">Our Story</div>
+    <h2>More Than Just a <em>Photograph</em></h2>
+    <p>Canwill Smith Photography is a Paarl-based studio dedicated to turning your most meaningful moments into timeless images. Every session is approached with care, creativity and a genuine passion for the craft.</p>
+    <p>From intimate maternity shoots to grand weddings and runway fashion — we bring the same level of artistry and professionalism to every project.</p>
+    <div class="about-stats">
+      <div><div class="stat-num">100%</div><div class="stat-label">Satisfaction</div></div>
+      <div><div class="stat-num">18+</div><div class="stat-label">5★ Reviews</div></div>
+      <div><div class="stat-num">4+</div><div class="stat-label">Services</div></div>
+    </div>
+  </div>
+</section>
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <div class="marquee-item">Wedding Photography<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Portrait Sessions<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Studio Photography<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Lifestyle Photography<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Event Coverage<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Maternity Shoots<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Runway Modelling<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Wedding Photography<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Portrait Sessions<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Studio Photography<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Lifestyle Photography<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Event Coverage<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Maternity Shoots<div class="marquee-sep"></div></div>
+    <div class="marquee-item">Runway Modelling<div class="marquee-sep"></div></div>
+  </div>
+</div>
+<section class="services" id="services">
+  <div class="services-head reveal">
+    <div class="section-label">What We Offer</div>
+    <h2 class="services-title">Our <em>Services</em></h2>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card"><div class="service-num">01</div><div class="service-icon">💍</div><div class="service-name">Wedding Photography</div><div class="service-desc">Your love story told through breathtaking images. Every precious moment captured with care and artistry.</div></div>
+    <div class="service-card"><div class="service-num">02</div><div class="service-icon">🖼️</div><div class="service-name">Portrait Photography</div><div class="service-desc">Professional portraits that reveal the true essence of who you are. Every portrait tells your story.</div></div>
+    <div class="service-card"><div class="service-num">03</div><div class="service-icon">✨</div><div class="service-name">Studio Photography</div><div class="service-desc">Full studio with professional lighting for flawless results. Perfect for headshots and maternity sessions.</div></div>
+    <div class="service-card"><div class="service-num">04</div><div class="service-icon">🌿</div><div class="service-name">Lifestyle Photography</div><div class="service-desc">Natural, candid moments in your own environment. Authentic storytelling that reflects your real life.</div></div>
+  </div>
+</section>
+<section class="gallery" id="gallery">
+  <div class="gallery-head reveal">
+    <div class="section-label">Portfolio</div>
+    <h2 class="gallery-title">Selected <em>Work</em></h2>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="g-item g1"><img src="canwill.jpg" alt="Studio Portrait"/><div class="g-overlay"><span class="g-tag">Studio Portrait</span></div></div>
+    <div class="g-item g2"><div class="g-placeholder">Wedding Photography</div><div class="g-overlay"><span class="g-tag">Wedding</span></div></div>
+    <div class="g-item g3"><div class="g-placeholder">Maternity Shoot</div><div class="g-overlay"><span class="g-tag">Maternity</span></div></div>
+    <div class="g-item g4"><div class="g-placeholder">Lifestyle</div><div class="g-overlay"><span class="g-tag">Lifestyle</span></div></div>
+    <div class="g-item g5"><div class="g-placeholder">Event Coverage</div><div class="g-overlay"><span class="g-tag">Events</span></div></div>
+    <div class="g-item g6"><div class="g-placeholder">Portrait</div><div class="g-overlay"><span class="g-tag">Portrait</span></div></div>
+    <div class="g-item g7"><div class="g-placeholder">Runway &amp; Modelling</div><div class="g-overlay"><span class="g-tag">Fashion</span></div></div>
+  </div>
+</section>
+<section class="photographer" id="photographer">
+  <div class="photographer-img reveal"><img src="canwill.jpg" alt="Canwill Smith"/></div>
+  <div class="photographer-text reveal">
+    <div class="section-label">The Photographer</div>
+    <h2>Meet <em>Canwill</em> Smith</h2>
+    <p>Based in the heart of Paarl, Canwill Smith is a passionate visual storyteller with an eye for authentic moments and striking compositions. His work spans weddings, portraits, fashion and lifestyle photography.</p>
+    <p>With a 100% client recommendation rate and a growing portfolio that includes runway models, maternity sessions and concert coverage — Canwill brings warmth, professionalism and genuine artistry to every shoot.</p>
+    <p>When you book with Canwill, you're not just getting photos — you're getting a memorable experience and images you'll treasure for life.</p>
+    <div class="photographer-sig">Canwill Smith</div>
+  </div>
+</section>
+<section class="testimonials" id="testimonials">
+  <div class="reveal">
+    <div class="section-label">Client Reviews</div>
+    <h2 class="test-title">What Our <em>Clients</em> Say</h2>
+  </div>
+  <div class="test-grid reveal">
+    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-quote">They captured the moments so beautifully. Every photo tells a story and brings back the emotion of that day perfectly.</p><div class="test-author">— Erna Buis</div></div>
+    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-quote">Thank you with love! You have such an incredible eye for beauty. Our maternity shoot was absolutely magical.</p><div class="test-author">— Chintonia Elizma</div></div>
+    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-quote">Professional, warm and incredibly talented. Canwill made us feel so comfortable and the results exceeded our expectations.</p><div class="test-author">— Klein Nederburg SS</div></div>
+    <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-quote">Best photographer in Paarl without a doubt. The attention to detail and passion really shows in every single shot.</p><div class="test-author">— Happy Client</div></div>
+  </div>
+</section>
+<section class="contact" id="contact">
+  <div class="reveal">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="contact-title">Let's Create Something <em>Beautiful</em></h2>
+    <p class="contact-intro">Ready to book your session? Have a question? We'd love to hear from you.</p>
+    <div class="contact-detail"><div class="c-icon">📞</div><div><div class="c-label">Phone</div><div class="c-val">065 913 0518</div></div></div>
+    <div class="contact-detail"><div class="c-icon">✉️</div><div><div class="c-label">Email</div><div class="c-val">canwillphotography@gmail.com</div></div></div>
+    <div class="contact-detail"><div class="c-icon">📍</div><div><div class="c-label">Location</div><div class="c-val">333 Main Road, Paarl, 7646</div></div></div>
+    <div class="contact-detail"><div class="c-icon">f</div><div><div class="c-label">Facebook</div><div class="c-val">Canwill Smith Photography</div></div></div>
+  </div>
+  <div class="reveal">
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">First Name</label><input type="text" class="form-input" placeholder="Your name" required/></div>
+        <div class="form-group"><label class="form-label">Last Name</label><input type="text" class="form-input" placeholder="Surname"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="your@email.com" required/></div>
+      <div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-input" placeholder="+27 00 000 0000"/></div>
+      <div class="form-group">
+        <label class="form-label">Service</label>
+        <select class="form-select">
+          <option value="">Select a service</option>
+          <option>Wedding Photography</option>
+          <option>Portrait Photography</option>
+          <option>Studio Photography</option>
+          <option>Lifestyle Photography</option>
+          <option>Event Coverage</option>
+          <option>Maternity Shoot</option>
+          <option>Runway / Fashion</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Tell us about your vision..."></textarea></div>
+      <button type="submit" class="form-btn">Send Message →</button>
+    </form>
+  </div>
+</section>
+<footer>
+  <img src="logo.jpg" alt="Canwill Smith Photography" style="height:28px;filter:invert(1);object-fit:contain;"/>
+  <div class="footer-copy">© 2026 Canwill Smith Photography · Paarl, South Africa</div>
+  <div class="footer-social"><a href="#">f</a><a href="#">✉</a><a href="#">📞</a></div>
+</footer>
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+(function anim(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
+document.querySelectorAll('a,button,.service-card,.g-item,.test-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.opacity='1';});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='0.6';});
+});
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>80));
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*120);obs.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.form-btn');
+  btn.textContent='Message Sent! ✓';btn.style.background='#333';btn.style.color='#fff';
+  setTimeout(()=>{btn.textContent='Send Message →';btn.style.background='';btn.style.color='';},3000);
+}
+</script>
+</body>
+</html>
